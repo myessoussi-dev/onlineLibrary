@@ -17,24 +17,22 @@ public class Book {
     @ManyToOne
     @JoinColumn(name = "author_id")
     private Author author;
+    @ManyToOne // no need to join jpa wil do it by itself and generate
+    // autocolumn name
+    private Category category;
 
-    public Book(Integer id, String imageUrl, String title, Boolean available, String description, Author author) {
+    public Book(Integer id, String imageUrl, String title,
+                String description, Author author, Category category) {
         this.id = id;
         this.imageUrl = imageUrl;
         this.title = title;
-        this.available = available;
         this.description = description;
         this.author = author;
-    }
-    public Book(String imageUrl, String title, Boolean available, String description, Author author) {
-        this.imageUrl = imageUrl;
-        this.title = title;
-        this.available = available;
-        this.description = description;
-        this.author = author;
+        this.category = category;
     }
 
-
+    public Book() {
+    }
 
     public Author getAuthor() {
         return author;
@@ -82,5 +80,13 @@ public class Book {
 
     public void setId(Integer id) {
         this.id = id;
+    }
+
+    public Category getCategory() {
+        return category;
+    }
+
+    public void setCategory(Category category) {
+        this.category = category;
     }
 }

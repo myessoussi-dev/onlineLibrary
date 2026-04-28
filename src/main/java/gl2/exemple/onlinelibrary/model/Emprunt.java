@@ -24,6 +24,7 @@ public class Emprunt {
         this.rendu = rendu;
         this.user = user;
     }
+    public Emprunt(){}
 
     public Integer getId() {
         return id;
