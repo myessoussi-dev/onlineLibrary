@@ -25,7 +25,7 @@ public interface BookRepository extends JpaRepository<Book,Integer> {
     // Parce que null peut provoquer des NullPointerException et est ambigu.
     // Optional a été créé pour représenter explicitement l’absence de valeur
     // tout en évitant les erreurs liées à null.
-    List<Book> findByTitle(String name);
+    List<Book> findByTitleContainingIgnoreCase(String name);
     List<Book> findByAuthorNameContainingIgnoreCase(String name);//il utilise like
     // et ignore les maj et minus
     // il fait la jointure tous seul

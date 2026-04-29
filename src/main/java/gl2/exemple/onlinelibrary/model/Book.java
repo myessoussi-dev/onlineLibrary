@@ -1,16 +1,17 @@
 package gl2.exemple.onlinelibrary.model;
 
 import jakarta.persistence.*;
-
 // pour les bases de données SQL (comme H2 ou MySQL).
 // Elle dit à Hibernate : "Ceci est la clé primaire de ma table".
 // org.springframework.data.annotation.Id c pour NoSql
+
 @Entity
 public class Book {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id; //cannot be primitive type int no
     private String imageUrl;
+    @Column(unique = true)
     private String title;
     private Boolean available=true;
     private String description;
