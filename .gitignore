@@ -1,5 +1,6 @@
 HELP.md
 target/
+data/
 src/test
 .idea/
 .mvn/
@@ -11,5 +12,6 @@ mvnw.cmd
 *.iws
 *.iml
 *.ipr
+Cours.txt
 
 
