@@ -1,10 +1,26 @@
 package gl2.exemple.onlinelibrary.DTO;
 
+import jakarta.validation.constraints.NotBlank;
+
 public class BookRequest {
+    @NotBlank(message = "title is required")
     private String title ;
+    @NotBlank(message = "description is required")
     private String description;
+    @NotBlank(message = "author name is required")
     private String authorName;
+    @NotBlank(message = "category name is required")
     private String categoryName;
+    @NotBlank(message = "image url is required")
+    private String imageUrl;
+
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
+    }
 
     public BookRequest(String title, String description, String authorName, String categoryName) {
         this.title = title;

@@ -26,6 +26,7 @@ public class BookService {
         dto.setAuthorName(book.getAuthor().getName());
         dto.setCategoryName(book.getCategory().getName());
         dto.setAvailable(book.getAvailable());
+        dto.setImageUrl(book.getImageUrl());
         return dto;
     }
 
@@ -36,7 +37,8 @@ public class BookService {
     }
 
     public Book addBook(String title ,String description,
-                        String authorName,String categoryName
+                        String authorName,String categoryName,
+                        String image
                         ){
         Author author =authorRepository.findByName(authorName);
         if(author==null){
@@ -55,6 +57,7 @@ public class BookService {
         book.setTitle(title);
         book.setCategory(category);
         book.setAuthor(author);
+        book.setImageUrl(image);
         try{
             return bookRepository.save(book);
         }catch (DataIntegrityViolationException e) {
@@ -103,6 +106,9 @@ public class BookService {
     public List<BookDTO> getBooksByAuthorName(String name){
         return bookRepository.findByAuthorNameContainingIgnoreCase(name)
                 .stream().map(this::fn).toList();
+    }
+    public void deleteBook(Integer id){
+        bookRepository.deleteById(id);
     }
 
 }

@@ -4,6 +4,7 @@ import gl2.exemple.onlinelibrary.DTO.BookDTO;
 import gl2.exemple.onlinelibrary.DTO.BookRequest;
 import gl2.exemple.onlinelibrary.model.Book;
 import gl2.exemple.onlinelibrary.service.BookService;
+import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -38,14 +39,18 @@ public class bookController {
         return bookService.searchByTitle(title);
     }
     @PostMapping
-    public Book addBook(@RequestBody BookRequest bookRequest){
+    public Book addBook(@Valid @RequestBody BookRequest bookRequest){
         return bookService.addBook(bookRequest.getTitle(),bookRequest.getDescription(),
-                bookRequest.getAuthorName(),bookRequest.getCategoryName());
+                bookRequest.getAuthorName(),bookRequest.getCategoryName(),bookRequest.getImageUrl());
     }
 
     @GetMapping("/searchByAuthor")
     public List<BookDTO> searchByAuthorName(@RequestParam String name){
         return bookService.getBooksByAuthorName(name);
+    }
+    @DeleteMapping("/{id}")
+    public void deleteBook(@PathVariable Integer id){
+        bookService.deleteBook(id);
     }
 
 }

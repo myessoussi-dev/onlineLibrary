@@ -1,7 +1,10 @@
 package gl2.exemple.onlinelibrary.DTO;
 
 
+import jakarta.validation.constraints.NotBlank;
+
 public class BookDTO {
+
 
     private Integer id;
     private String title;
@@ -9,8 +12,17 @@ public class BookDTO {
     private String authorName;
     private String categoryName;
     private boolean available;
+    private String imageUrl;
 
     public BookDTO() {
+    }
+
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
     }
 
     public Integer getId() {
