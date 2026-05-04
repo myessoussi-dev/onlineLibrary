@@ -1,6 +1,7 @@
 package gl2.exemple.onlinelibrary.service;
 
 import gl2.exemple.onlinelibrary.DTO.BookDTO;
+import gl2.exemple.onlinelibrary.DTO.BookRequest;
 import gl2.exemple.onlinelibrary.model.Author;
 import gl2.exemple.onlinelibrary.model.Book;
 import gl2.exemple.onlinelibrary.model.Category;
@@ -36,28 +37,25 @@ public class BookService {
         this.categoryRepository = categoryRepository;
     }
 
-    public Book addBook(String title ,String description,
-                        String authorName,String categoryName,
-                        String image
-                        ){
-        Author author =authorRepository.findByName(authorName);
+    public Book addBook(BookRequest bookRequest){
+        Author author =authorRepository.findByName(bookRequest.getAuthorName());
         if(author==null){
             author =new Author();
-            author.setName(authorName);
+            author.setName(bookRequest.getAuthorName());
             author=authorRepository.save(author);
         }
-        Category category=categoryRepository.findByName(categoryName);
+        Category category=categoryRepository.findByName(bookRequest.getCategoryName());
         if (category==null){
             category=new Category();
-            category.setName(categoryName);
+            category.setName(bookRequest.getCategoryName());
             category=categoryRepository.save(category);
         }
         Book book = new Book();
-        book.setDescription(description);
-        book.setTitle(title);
+        book.setDescription(bookRequest.getDescription());
+        book.setTitle(bookRequest.getTitle());
         book.setCategory(category);
         book.setAuthor(author);
-        book.setImageUrl(image);
+        book.setImageUrl(bookRequest.getImageUrl());
         try{
             return bookRepository.save(book);
         }catch (DataIntegrityViolationException e) {
@@ -110,5 +108,42 @@ public class BookService {
     public void deleteBook(Integer id){
         bookRepository.deleteById(id);
     }
+
+    public Book updateBook(Integer id, BookRequest bookRequest){
+        Book book=bookRepository.findById(id).orElseThrow(()->new RuntimeException("book doesn't exist"));
+        if(bookRequest.getCategoryName()!=null){
+            Category c=categoryRepository.findByName(bookRequest.getCategoryName());
+            if(c==null){
+                c= new Category();
+                c.setName(bookRequest.getCategoryName());
+                c=categoryRepository.save(c);
+            }
+            book.setCategory(c);
+        }
+        if (bookRequest.getDescription()!=null){
+            book.setDescription(bookRequest.getDescription());
+        }
+        if (bookRequest.getTitle()!=null){
+            book.setTitle(bookRequest.getTitle());
+        }
+        if (bookRequest.getAuthorName()!=null){
+            Author author=authorRepository.findByName(bookRequest.getAuthorName());
+            if(author==null){
+                author=new Author();
+                author.setName(bookRequest.getAuthorName());
+                author=authorRepository.save(author);
+            }
+            book.setAuthor(author);
+        }
+        if(bookRequest.getImageUrl()!=null){
+            book.setImageUrl(bookRequest.getImageUrl());
+        }
+        return bookRepository.save(book);
+    }
+    public List<BookDTO> getBookByAvailable(){
+        return bookRepository.findByAvailable(true).stream().
+                map(this::fn).toList();
+    }
+
 
 }

@@ -21,14 +21,6 @@ public class BookRequest {
     public void setImageUrl(String imageUrl) {
         this.imageUrl = imageUrl;
     }
-
-    public BookRequest(String title, String description, String authorName, String categoryName) {
-        this.title = title;
-        this.description = description;
-        this.authorName = authorName;
-        this.categoryName = categoryName;
-    }
-
     public BookRequest() {
     }
 

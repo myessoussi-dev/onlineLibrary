@@ -14,6 +14,7 @@ public class Book {
     @Column(unique = true)
     private String title;
     private Boolean available=true;
+    @Lob
     private String description;
     @ManyToOne
     @JoinColumn(name = "author_id")
@@ -21,16 +22,6 @@ public class Book {
     @ManyToOne // no need to join jpa wil do it by itself and generate
     // autocolumn name
     private Category category;
-
-    public Book(Integer id, String imageUrl, String title,
-                String description, Author author, Category category) {
-        this.id = id;
-        this.imageUrl = imageUrl;
-        this.title = title;
-        this.description = description;
-        this.author = author;
-        this.category = category;
-    }
 
     public Book() {
     }

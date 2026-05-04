@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@RestController //ça ve
+@RestController //ça veut dire qu'il renvoi du JSON
 @CrossOrigin(origins = "http://localhost:3000")
 @RequestMapping("/api/books") // base de url
 public class bookController {
@@ -36,12 +36,13 @@ public class bookController {
     // ici request param il filtre on indique ce que on cherche specifiquement
     // on ajoute ?param=la valeur qu'on cherche
     public List<BookDTO> searchBooks(@RequestParam String title) {
+
         return bookService.searchByTitle(title);
     }
     @PostMapping
     public Book addBook(@Valid @RequestBody BookRequest bookRequest){
-        return bookService.addBook(bookRequest.getTitle(),bookRequest.getDescription(),
-                bookRequest.getAuthorName(),bookRequest.getCategoryName(),bookRequest.getImageUrl());
+
+        return bookService.addBook(bookRequest);
     }
 
     @GetMapping("/searchByAuthor")
@@ -50,7 +51,16 @@ public class bookController {
     }
     @DeleteMapping("/{id}")
     public void deleteBook(@PathVariable Integer id){
+
         bookService.deleteBook(id);
     }
+    @PatchMapping("/{id}")
+    public void updateBook(@PathVariable Integer id, @RequestBody BookRequest bookRequest){
+         bookService.updateBook(id,bookRequest);
+    }
+    @GetMapping("/availableBook")
+    public List<BookDTO> getByAvailable(){
 
+        return bookService.getBookByAvailable();
+    }
 }

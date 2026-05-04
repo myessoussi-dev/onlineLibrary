@@ -29,5 +29,6 @@ public interface BookRepository extends JpaRepository<Book,Integer> {
     List<Book> findByAuthorNameContainingIgnoreCase(String name);//il utilise like
     // et ignore les maj et minus
     // il fait la jointure tous seul
+    List<Book> findByAvailable(Boolean av);
 
 }
