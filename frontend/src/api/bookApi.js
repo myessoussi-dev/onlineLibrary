@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const BASE_URL = "http://localhost:8080/api/books";
+const BASE_URL = "http://192.168.0.113:8080/api/books";
 
 export const getBooks = () => axios.get(BASE_URL);
 

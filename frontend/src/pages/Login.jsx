@@ -116,7 +116,6 @@ const handleLogin = async () => {
       setSuccess("Account created! You can now sign in.");
       setRegisterForm({ login: "", email: "", password: "" });
       setTimeout(() => { setTab("login"); setSuccess(""); }, 1500);
-      onLogin();
     } catch (err) {
       setError(err.message);
     } finally {
